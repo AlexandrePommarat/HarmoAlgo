@@ -2,22 +2,22 @@ package listefiche;
 
 
 /**
- * Classe permettant de créer une liste de {@link FicheChaine} et de les manipuler
+ * Classe permettant de creer une liste de {@link FicheChaine} et de les manipuler
  * @author gael 
  *
  */
 public class ListeFiche {
 	
 	/**
-	 * La Première fiche
+	 * La Premiere fiche
 	 */
 	private FicheChaine fiche;
 	
 	
 
 	/**
-	 * Constructeur de l'objet FicheChainee, il créé une nouvelle fiche chainee avec en paramètre la première fiche
-	 * @param f la fiche qui deviendra la première fiche
+	 * Constructeur de l'objet FicheChainee, il cree une nouvelle fiche chainee avec en parametre la premiere fiche
+	 * @param f la fiche qui deviendra la premiere fiche
 	 */
 	public ListeFiche(FicheChaine f){
 		this.fiche = f;
@@ -48,7 +48,7 @@ public class ListeFiche {
 	}
 	
 	/**
-	 * Méthode pour récupérer la dernière fiche
+	 * Methode pour recuperer la derniere fiche
 	 * @return
 	 */
 	public FicheChaine getDerniereFiche() {
