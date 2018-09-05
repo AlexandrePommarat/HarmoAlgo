@@ -61,10 +61,9 @@ public class ListeFiche {
 	 */
 	public void retirerFiche(int index) {
 		// si la fiche n'existe pas, la méthode s'arrête
-		if(index == 1) {
+		if (index == 1) {
 			this.fiche = this.fiche.getFicheSuivante();
-		}
-		else if (index > 1 && index <= this.getSize() && !this.isEmpty()) {
+		} else if (index > 1 && index <= this.getSize() && !this.isEmpty()) {
 			FicheChaine supr = this.getFicheChaine(index);
 			FicheChaine avant = this.getFicheChaine(index - 1);
 			avant.setFicheSuivante(supr.getFicheSuivante());
@@ -72,10 +71,77 @@ public class ListeFiche {
 	}
 
 	/**
-	 * Trie la liste en fonction du nom de famille
+	 * Trie la liste par ordre alphabetique en fonction du nom de famille
 	 */
 	public void trier() {
+		// tri à bulle : trier deux éléments à la fois jusqu'à ce qu'aucun changements
+		// n'est effectué
+		if (this.getSize() > 1) {
+			// Si change est true, c'est qu'il y a eu un changement
+			boolean change = true;
 
+			while (change) {
+				change = false;
+				// On parcourt tout les éléments
+				for (int index = 1; index < this.getSize(); index++) {
+					// On récupère un élement
+					FicheChaine fc1 = this.getFicheChaine(index);
+					// Puis on récupère l'élément qui le suit
+					FicheChaine fc2 = fc1.getFicheSuivante();
+
+					// S'il faut les échanger (s'il faut que fc2 soit avant fc1)
+					if (aEchanger(fc1, fc2)) {
+
+						// Si l'échange se passe entre les deux premiers, le deuxième passe premier
+						if (index == 1) {
+							this.fiche = fc2;
+						}
+
+						// Echange des deux fiches
+						if (index > 1) {
+							FicheChaine fc0 = this.getFicheChaine(index - 1);
+							fc0.setFicheSuivante(fc2);
+						}
+						fc1.setFicheSuivante(fc2.getFicheSuivante());
+						fc2.setFicheSuivante(fc1);
+
+						change = true;
+					}
+				}
+			}
+		}
+
+	}
+
+	/**
+	 * Méthode qui détermine si f1 doit être avant ou après f2.
+	 * 
+	 * @param f1 première fiche
+	 * @param f2 deuxième fiche
+	 * @return true si f1 doit être après f2, sinon retourne faux
+	 */
+	private boolean aEchanger(Fiche f1, Fiche f2) {
+		boolean echanger = false;
+
+		int charCompare = 0;
+
+		// Tant que les lettres dans le nom sont les mêmes et qu'il reste des lettres,
+		// on passe à la lettre
+		// suivante
+		while (f1.getNom().toUpperCase().charAt(charCompare) == f2.getNom().toUpperCase().charAt(charCompare)) {
+			charCompare++;
+
+			// Si on est arrivé à la fin d'un des nom
+			if (charCompare == f1.getNom().length() - 1 || charCompare == f2.getNom().length() - 1) {
+				// Ils sont imcomparables
+				return false;
+			}
+		}
+
+		final int intCharF1 = (int) f1.getNom().toUpperCase().charAt(charCompare);
+		final int intCharF2 = (int) f2.getNom().toUpperCase().charAt(charCompare);
+
+		return intCharF1 > intCharF2; // Testé et approuvé
 	}
 
 	/**
@@ -89,10 +155,9 @@ public class ListeFiche {
 		if (index <= 0 || index > this.getSize() || this.isEmpty()) {
 			return null;
 		}
-		
-		
-		//On parcourt toutes les fiches de la première à la dernière
-		//index de la fiche en cours
+
+		// On parcourt toutes les fiches de la première à la dernière
+		// index de la fiche en cours
 		int indexRech = 1;
 
 		FicheChaine result = this.fiche;
@@ -107,12 +172,12 @@ public class ListeFiche {
 
 	public Fiche getFiche(int index) {
 		final FicheChaine f = this.getFicheChaine(index);
-		
-		if(f == null) {
+
+		if (f == null) {
 			return null;
 		}
-		
-		return (Fiche)f;
+
+		return (Fiche) f;
 	}
 
 	/**
