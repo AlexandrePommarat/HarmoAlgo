@@ -1,5 +1,6 @@
 package Main;
 
+import java.util.Comparator;
 import java.util.Scanner;
 
 import listefiche.FicheChaine;
@@ -12,7 +13,9 @@ public class Main {
 		final ListeFiche listeFiche = new ListeFiche();
 		listeFiche.ajouterFiche(new FicheChaine("Alexandre", "Pommarat"));
 		listeFiche.ajouterFiche(new FicheChaine("Gael", "Dim"));
-
+		listeFiche.ajouterFiche(new FicheChaine("Gael", "BOis"));
+		listeFiche.ajouterFiche(new FicheChaine("Gael", "Aled"));
+		
 		while (!quitter) {
 			System.out.println("\n---------------------------------------");
 			System.out.println("Selectionnez une action a effectuer:");
@@ -70,6 +73,14 @@ public class Main {
 					System.out.println("Contact supprime !");
 				}
 				break;
+				
+			case 'E' : //Rechercher un contact
+				break;
+				
+			case 'F' : //Trier les contacts
+				System.out.println("Tri en cours");
+				listeFiche.trier();
+				break;
 
 			default:
 				System.out.println("Reponse inconnue");
@@ -77,7 +88,6 @@ public class Main {
 		}
 
 		System.out.println("Au revoir !!");
-
 	}
 
 	private static void afficherFiche(Fiche f) {
