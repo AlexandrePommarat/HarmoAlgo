@@ -18,7 +18,10 @@ public class Main {
 			System.out.println("F. Trier le tableau");
 			System.out.println("G. Quitter");
 			
-		
+			Scanner sc = new Scanner(System.in);
+			String reponse;
+			reponse = sc.nextLine();
+			
 			
 			
 		}
