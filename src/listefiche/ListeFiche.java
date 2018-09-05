@@ -1,5 +1,11 @@
 package listefiche;
 
+
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+
 import Main.Fiche;
 
 /**
@@ -153,6 +159,29 @@ public class ListeFiche {
 		}
 
 		return f;
+	}
+
+	public void charger(){
+		// desérialisation
+	      try {
+	         FileInputStream fis = new FileInputStream("basedetest.txt");
+	         ObjectInputStream ois = new ObjectInputStream(fis);
+	         this.fiche = ((FicheChaine) ois.readObject());
+	         ois.close();
+	      } catch (Exception e) { 
+	         e.printStackTrace(); 
+	      }
+	}
+	
+	public void sauvegarder(){
+		try {
+	         FileOutputStream fs = new FileOutputStream("basedetest.txt");
+	         ObjectOutputStream os = new ObjectOutputStream(fs);
+	         os.writeObject(this.getFicheChaine(1)); 
+	         os.close();
+	      } catch (Exception e) { 
+	         e.printStackTrace(); 
+	      }
 	}
 
 }

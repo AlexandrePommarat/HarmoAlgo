@@ -1,6 +1,8 @@
 package Main;
 
-public class Fiche {
+import java.io.Serializable;
+
+public class Fiche implements Serializable{
 
 	private String prenom;
 	private String nom;

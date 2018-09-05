@@ -1,5 +1,7 @@
 package listefiche;
 
+import java.io.Serializable;
+
 import Main.Fiche;
 
 /**
@@ -7,7 +9,7 @@ import Main.Fiche;
  * @author gael
  *
  */
-public class FicheChaine extends Fiche {
+public class FicheChaine extends Fiche{
 	
 	/**
 	 * Pointeur vers la fiche suivante
