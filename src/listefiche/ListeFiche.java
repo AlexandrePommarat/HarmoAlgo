@@ -23,8 +23,15 @@ public class ListeFiche {
 		this.fiche = f;
 	}
 	
+	/**
+	 * Cette methode permet d'ajouter une fiche
+	 * @param f
+	 * @return
+	 */
 	public FicheChaine ajouterFiche(FicheChaine f){
-		return f;
+		derniereFiche = this.getDerniereFiche();
+		
+		
 	}
 	
 	public void retirerFiche(){
