@@ -55,13 +55,13 @@ public class ListeFiche {
 	 */
 	public void retirerFiche(int index) {
 		// si la fiche n'existe pas, la méthode s'arrête
-		if (index > 0 && index <= this.getSize()) {
+		if(index == 1) {
+			this.fiche = this.fiche.getFicheSuivante();
+		}
+		else if (index > 1 && index <= this.getSize() && !this.isEmpty()) {
 			FicheChaine supr = this.getFicheChaine(index);
 			FicheChaine avant = this.getFicheChaine(index - 1);
 			avant.setFicheSuivante(supr.getFicheSuivante());
-
-			// Suppression de la fiche
-			supr = null;
 		}
 	}
 
@@ -83,13 +83,17 @@ public class ListeFiche {
 		if (index <= 0 || index > this.getSize() || this.isEmpty()) {
 			return null;
 		}
-
+		
+		
+		//On parcourt toutes les fiches de la première à la dernière
+		//index de la fiche en cours
 		int indexRech = 1;
 
 		FicheChaine result = this.fiche;
 
 		while (indexRech < index) {
 			result = result.getFicheSuivante();
+			indexRech++;
 		}
 
 		return result;
@@ -138,7 +142,6 @@ public class ListeFiche {
 	 */
 	public FicheChaine getDerniereFiche() {
 		if (this.isEmpty()) {
-			System.out.println(this.getSize());
 			return null;
 		}
 

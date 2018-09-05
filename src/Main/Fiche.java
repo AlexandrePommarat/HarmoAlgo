@@ -26,9 +26,6 @@ public class Fiche {
 	}
 
 	public void setPrenom(String prenom) {
-		if (prenom == null || prenom.equals("")) {
-			throw new IllegalArgumentException();
-		}
 		this.prenom = prenom;
 	}
 
@@ -37,9 +34,6 @@ public class Fiche {
 	}
 
 	public void setNom(String nom) {
-		if (nom == null || nom.equals("")) {
-			throw new IllegalArgumentException();
-		}
 		this.nom = nom;
 	}
 
@@ -59,10 +53,15 @@ public class Fiche {
 	}
 
 	public void setTel(String tel) {
-		if (tel == null) {
-			throw new IllegalArgumentException("cela ne peut être null!");
-		}
-		this.tel = tel;
+		this.tel = tel.trim();
+	}
+	
+	public boolean aUnTelephone() {
+		return this.tel.trim() != "";
+	}
+	
+	public boolean aUneAdresse() {
+		return this.adresse.trim() != "";
 	}
 
 	@Override
