@@ -126,6 +126,8 @@ public class Main {
 		String tel;
 
 		Scanner sc = new Scanner(System.in);
+		
+		System.out.println("Saisissez votre contact : (Ne rien mettre si vous voulez laisser vide)");
 
 		System.out.print("Prenom : ");
 			prenom = sc.nextLine();
@@ -141,6 +143,10 @@ public class Main {
 
 		System.out.print("Telephone : ");
 		tel = sc.nextLine();
+		while(tel.length() != 0 && tel.length() != 10) {
+			System.out.print("Saisir un numero a dix chiffres : (ou ne rien saisir)");
+			tel = sc.nextLine();
+		}
 		f.setTel(tel);
 		
 		listeFiche.ajouterFiche(f);	
