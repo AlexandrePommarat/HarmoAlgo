@@ -28,9 +28,9 @@ public class ListeFiche {
 	 * @param f
 	 * @return
 	 */
-	public FicheChaine ajouterFiche(FicheChaine f){
-		derniereFiche = this.getDerniereFiche();
-		
+	public void ajouterFiche(FicheChaine f){
+		FicheChaine derniereFiche = this.getDerniereFiche();
+		derniereFiche.setFicheSuivante(f);
 		
 	}
 	
