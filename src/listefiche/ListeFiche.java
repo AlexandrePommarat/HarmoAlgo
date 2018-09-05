@@ -40,7 +40,7 @@ public class ListeFiche {
 	 */
 	public void retirerFiche(int index){
 		//si la fiche n'existe pas, la méthode s'arrête
-		if(index <= this.getSize()) {
+		if(index > 0 && index <= this.getSize()) {
 			FicheChaine supr = this.get(index);
 			FicheChaine avant = this.get(index-1);
 			avant.setFicheSuivante(supr.getFicheSuivante());
@@ -57,8 +57,26 @@ public class ListeFiche {
 		
 	}
 	
+	/**
+	 * Méthode permettant de récuperer une des fiches
+	 * @param index index de la fiche choisie
+	 * @return La fiche numéro index
+	 */
 	public FicheChaine get(int index){
-		return null;
+		//Si l'index n'est pas dans la liste OU si la liste est vide
+		if(index <= 0 || index > this.getSize() || this.isEmpty()) {
+			return null;
+		}
+		
+		int indexRech = 1;
+		
+		FicheChaine result = this.fiche;
+		
+		while (indexRech < index) {
+			result = result.getFicheSuivante();
+		}
+		
+		return result;
 	}
 	
 	/**
