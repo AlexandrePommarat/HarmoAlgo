@@ -12,7 +12,7 @@ public class FicheChaine extends Fiche {
 	/**
 	 * Pointeur vers la fiche suivante
 	 */
-	private Fiche ficheSuivante;
+	private FicheChaine ficheSuivante;
 
 	public FicheChaine(String prenom, String nom) {
 		super(prenom, nom);
@@ -29,11 +29,11 @@ public class FicheChaine extends Fiche {
 		this.ficheSuivante = null;
 	}
 
-	public Fiche getFicheSuivante() {
+	public FicheChaine getFicheSuivante() {
 		return ficheSuivante;
 	}
 
-	public void setFicheSuivante(Fiche ficheSuivante) {
+	public void setFicheSuivante(FicheChaine ficheSuivante) {
 		this.ficheSuivante = ficheSuivante;
 	}
 	
