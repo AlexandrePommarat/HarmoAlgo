@@ -11,11 +11,13 @@ public class Main {
 	public static void main(String[] args) {
 		boolean quitter = false;
 		final ListeFiche listeFiche = new ListeFiche();
-		listeFiche.ajouterFiche(new FicheChaine("Alexandre", "Pommarat"));
-		listeFiche.ajouterFiche(new FicheChaine("Gael", "Dim"));
-		listeFiche.ajouterFiche(new FicheChaine("Gael", "BOis"));
-		listeFiche.ajouterFiche(new FicheChaine("Gael", "Aled"));
-		
+		/*
+		 * listeFiche.ajouterFiche(new FicheChaine("Alexandre", "Pommarat"));
+		 * listeFiche.ajouterFiche(new FicheChaine("Gael", "Dim"));
+		 * listeFiche.ajouterFiche(new FicheChaine("Gael", "BOis"));
+		 * listeFiche.ajouterFiche(new FicheChaine("Gael", "Aled"));
+		 */
+
 		while (!quitter) {
 			System.out.println("\n---------------------------------------");
 			System.out.println("Selectionnez une action a effectuer:");
@@ -42,44 +44,56 @@ public class Main {
 				quitter = true;
 				break;
 
-			case 'A': //Afficher les contacts numerotees
+			case 'A': // Afficher les contacts numerotees
 				afficherFiches(listeFiche);
 				break;
 
-			case 'B'://Afficher un contact
+			case 'B':// Afficher un contact
 				System.out.println("Afficher la fiche numéro : ");
 				final int index = sc.nextInt();
 				Fiche f = listeFiche.getFiche(index);
 				if (f == null) {
 					System.out.println("Ce contact n'existe pas !");
 				} else {
-					//Affichage de la fiche
+					// Affichage de la fiche
 					afficherFiche(f);
 				}
 				break;
-				
-			case 'C'://Saisir une nouvelle contact
+
+			case 'C':// Saisir une nouvelle contact
 				saisirUneFiche(listeFiche);
 				break;
-				
-			case 'D'://Supprimer un contact
+
+			case 'D':// Supprimer un contact
 				System.out.print("Numero du contact a supprimer : ");
 				int indexSuppr = sc.nextInt();
-				if(indexSuppr <= 0 || indexSuppr > listeFiche.getSize()) {
+				if (indexSuppr <= 0 || indexSuppr > listeFiche.getSize()) {
 					System.out.println("Le contact n'existe pas");
-				}
-				else {
+				} else {
 					listeFiche.retirerFiche(indexSuppr);
 					System.out.println("Contact supprime !");
 				}
 				break;
-				
-			case 'E' : //Rechercher un contact
+
+			case 'E': // Rechercher un contact
 				break;
-				
-			case 'F' : //Trier les contacts
+
+			case 'F': // Trier les contacts
 				System.out.println("Tri en cours");
 				listeFiche.trier();
+				break;
+
+			case 'G': // Sauvegarder
+				if (listeFiche.isEmpty()) {
+					System.out.println("Vous n'avez aucun contact, il n'y a rien a sauvegarder");
+				} else {
+					listeFiche.sauvegarder();
+					System.out.println("Sauvegarde effectuee !");
+				}
+				break;
+
+			case 'H': // Charger
+				listeFiche.charger();
 				break;
 
 			default:
@@ -93,18 +107,17 @@ public class Main {
 	private static void afficherFiche(Fiche f) {
 		System.out.println("\n-----------------------");
 		System.out.println("Contact :");
-		System.out.println("Prenom : "+ f.getPrenom());
-		System.out.println("Nom : "+ f.getNom());
-		
+		System.out.println("Prenom : " + f.getPrenom());
+		System.out.println("Nom : " + f.getNom());
 
 		System.out.print("Telephone : ");
-		if(f.aUnTelephone())
+		if (f.aUnTelephone())
 			System.out.println(f.getTel());
 		else
 			System.out.println("Inconnu");
-		
+
 		System.out.print("Adresse : ");
-		if(f.aUneAdresse())
+		if (f.aUneAdresse())
 			System.out.println(f.getAdresse());
 		else
 			System.out.println("Inconnu");
@@ -128,7 +141,7 @@ public class Main {
 		}
 
 	}
-	
+
 	private static void saisirUneFiche(ListeFiche listeFiche) {
 		String prenom;
 		String nom;
@@ -136,11 +149,11 @@ public class Main {
 		String tel;
 
 		Scanner sc = new Scanner(System.in);
-		
+
 		System.out.println("Saisissez votre contact : (Ne rien mettre si vous voulez laisser vide)");
 
 		System.out.print("Prenom : ");
-			prenom = sc.nextLine();
+		prenom = sc.nextLine();
 
 		System.out.print("Nom : ");
 		nom = sc.nextLine();
@@ -153,13 +166,13 @@ public class Main {
 
 		System.out.print("Telephone : ");
 		tel = sc.nextLine();
-		while(tel.length() != 0 && tel.length() != 10) {
+		while (tel.length() != 0 && tel.length() != 10) {
 			System.out.print("Saisir un numero a dix chiffres : (ou ne rien saisir)");
 			tel = sc.nextLine();
 		}
 		f.setTel(tel);
-		
-		listeFiche.ajouterFiche(f);	
+
+		listeFiche.ajouterFiche(f);
 	}
 
 }
