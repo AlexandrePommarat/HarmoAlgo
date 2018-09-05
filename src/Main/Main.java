@@ -17,6 +17,10 @@ public class Main {
 			System.out.println("E. Rechercher une fiche");
 			System.out.println("F. Trier le tableau");
 			System.out.println("G. Quitter");
+			
+		
+			
+			
 		}
 		
 	}
