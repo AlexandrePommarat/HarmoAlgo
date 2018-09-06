@@ -2,6 +2,10 @@ package Main;
 
 import java.io.Serializable;
 
+/**
+ * Classe qui permet d'instancier une fiche avec les informations sur une personne
+ * Elle contient nom, prenom, adresse, numero de telephone
+ */
 public class Fiche implements Serializable{
 
 	private String prenom;

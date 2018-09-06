@@ -1,8 +1,6 @@
 package Main;
 
-import java.util.Comparator;
 import java.util.Scanner;
-
 import listefiche.FicheChaine;
 import listefiche.ListeFiche;
 
@@ -11,12 +9,7 @@ public class Main {
 	public static void main(String[] args) {
 		boolean quitter = false;
 		final ListeFiche listeFiche = new ListeFiche();
-		/*
-		 * listeFiche.ajouterFiche(new FicheChaine("Alexandre", "Pommarat"));
-		 * listeFiche.ajouterFiche(new FicheChaine("Gael", "Dim"));
-		 * listeFiche.ajouterFiche(new FicheChaine("Gael", "BOis"));
-		 * listeFiche.ajouterFiche(new FicheChaine("Gael", "Aled"));
-		 */
+
 
 		while (!quitter) {
 			System.out.println("\n---------------------------------------");
