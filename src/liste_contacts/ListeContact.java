@@ -1,4 +1,4 @@
-package listefiche;
+package liste_contacts;
 
 
 import java.io.FileInputStream;
@@ -6,36 +6,36 @@ import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
-import Main.Fiche;
+import Main.Contact;
 
 /**
- * Classe permettant de creer une liste de {@link FicheChaine} et de les
+ * Classe permettant de creer une liste de {@link ContactChaine} et de les
  * manipuler, fiches indexées en commençant par 1.
  * 
  * @author gael
  *
  */
-public class ListeFiche {
+public class ListeContact {
 
 	/**
 	 * La Premiere fiche
 	 */
-	private FicheChaine fiche;
+	private ContactChaine fiche;
 
 	/**
-	 * Constructeur de l'objet FicheChainee, il cree une nouvelle fiche chainee avec
+	 * Constructeur de l'objet FicheChainee, il cree une nouvelle Contact chainee avec
 	 * en parametre la premiere fiche
 	 * 
-	 * @param f la fiche qui deviendra la premiere fiche
+	 * @param f la Contact qui deviendra la premiere fiche
 	 */
-	public ListeFiche(FicheChaine f) {
+	public ListeContact(ContactChaine f) {
 		this.fiche = f;
 	}
 
 	/**
 	 * Constructeur vide, créé une liste vide.
 	 */
-	public ListeFiche() {
+	public ListeContact() {
 		this(null);
 	}
 
@@ -45,28 +45,28 @@ public class ListeFiche {
 	 * @param f
 	 * @return
 	 */
-	public void ajouterFiche(Fiche f) {
+	public void ajouterContact(Contact f) {
 		if (this.isEmpty()) {
-			this.fiche = new FicheChaine(f);
+			this.fiche = new ContactChaine(f);
 		} else {
-			FicheChaine derniereFiche = this.getDerniereFiche();
-			derniereFiche.setFicheSuivante(new FicheChaine(f));
+			ContactChaine derniereFiche = this.getDerniereFiche();
+			derniereFiche.setContactSuivante(new ContactChaine(f));
 		}
 	}
 
 	/**
-	 * Méthode permettant de retirer une fiche de la liste
+	 * Méthode permettant de retirer une Contact de la liste
 	 * 
-	 * @param index de la fiche à enlever
+	 * @param index de la Contact à enlever
 	 */
-	public void retirerFiche(int index) {
-		// si la fiche n'existe pas, la méthode s'arrête
+	public void retirerContact(int index) {
+		// si la Contact n'existe pas, la méthode s'arrête
 		if (index == 1) {
-			this.fiche = this.fiche.getFicheSuivante();
+			this.fiche = this.fiche.getContactSuivante();
 		} else if (index > 1 && index <= this.getSize() && !this.isEmpty()) {
-			FicheChaine supr = this.getFicheChaine(index);
-			FicheChaine avant = this.getFicheChaine(index - 1);
-			avant.setFicheSuivante(supr.getFicheSuivante());
+			ContactChaine supr = this.getFicheChaine(index);
+			ContactChaine avant = this.getFicheChaine(index - 1);
+			avant.setContactSuivante(supr.getContactSuivante());
 		}
 	}
 
@@ -85,9 +85,9 @@ public class ListeFiche {
 				// On parcourt tout les éléments
 				for (int index = 1; index < this.getSize(); index++) {
 					// On récupère un élement
-					FicheChaine fc1 = this.getFicheChaine(index);
+					ContactChaine fc1 = this.getFicheChaine(index);
 					// Puis on récupère l'élément qui le suit
-					FicheChaine fc2 = fc1.getFicheSuivante();
+					ContactChaine fc2 = fc1.getContactSuivante();
 
 					// S'il faut les échanger (s'il faut que fc2 soit avant fc1)
 					if (aEchanger(fc1, fc2)) {
@@ -99,11 +99,11 @@ public class ListeFiche {
 
 						// Echange des deux fiches
 						if (index > 1) {
-							FicheChaine fc0 = this.getFicheChaine(index - 1);
-							fc0.setFicheSuivante(fc2);
+							ContactChaine fc0 = this.getFicheChaine(index - 1);
+							fc0.setContactSuivante(fc2);
 						}
-						fc1.setFicheSuivante(fc2.getFicheSuivante());
-						fc2.setFicheSuivante(fc1);
+						fc1.setContactSuivante(fc2.getContactSuivante());
+						fc2.setContactSuivante(fc1);
 
 						change = true;
 					}
@@ -115,24 +115,24 @@ public class ListeFiche {
 	/**
 	 * Méthode permettant de rechercher dans les contacts.
 	 * @param recherche le mot à rechercher dans les contacts
-	 * @return Une liste de Fiche qui match avec la recherche
+	 * @return Une liste de Contact qui match avec la recherche
 	 */
-	public ListeFiche recherche(String recherche) {
-		final ListeFiche result = new ListeFiche();
+	public ListeContact recherche(String recherche) {
+		final ListeContact result = new ListeContact();
 		
 		if(this.isEmpty()) {
 			return null;
 		}
 		
-		FicheChaine fc = this.getFicheChaine(1);
-		while(!fc.estDerniereFiche()){
+		ContactChaine fc = this.getFicheChaine(1);
+		while(!fc.estDernierContact()){
 			//On vérifie si fc match avec la recherche
 			if(correspond(recherche, fc)) {
-				result.ajouterFiche(fc);
+				result.ajouterContact(fc);
 			}
 				//Si ça match, on le rajoute dans result
 			
-			fc = fc.getFicheSuivante();
+			fc = fc.getContactSuivante();
 		}
 		
 		return result;		
@@ -143,10 +143,10 @@ public class ListeFiche {
 	/**
 	 * Méthode permettant de vérifier si le mot recherche est contenu dans un des champs de la fiche
 	 * @param recherche le mot à rechercher
-	 * @param fiche la fiche à vérifier
+	 * @param Contact la Contact à vérifier
 	 * @return vrai si la recherche correspond, sinon retourne faux
 	 */
-	private boolean correspond(String recherche, FicheChaine fiche) {
+	private boolean correspond(String recherche, ContactChaine fiche) {
 		return false;
 	}
 
@@ -157,7 +157,7 @@ public class ListeFiche {
 	 * @param f2 deuxième fiche
 	 * @return true si f1 doit être après f2, sinon retourne faux
 	 */
-	private boolean aEchanger(Fiche f1, Fiche f2) {
+	private boolean aEchanger(Contact f1, Contact f2) {
 		boolean echanger = false;
 
 		int charCompare = 0;
@@ -184,37 +184,37 @@ public class ListeFiche {
 	/**
 	 * Méthode permettant de récuperer une des fiches
 	 * 
-	 * @param index index de la fiche choisie
-	 * @return La fiche numéro index
+	 * @param index index de la Contact choisie
+	 * @return La Contact numéro index
 	 */
-	public FicheChaine getFicheChaine(int index) {
+	public ContactChaine getFicheChaine(int index) {
 		// Si l'index n'est pas dans la liste OU si la liste est vide
 		if (index <= 0 || index > this.getSize() || this.isEmpty()) {
 			return null;
 		}
 
 		// On parcourt toutes les fiches de la première à la dernière
-		// index de la fiche en cours
+		// index de la Contact en cours
 		int indexRech = 1;
 
-		FicheChaine result = this.fiche;
+		ContactChaine result = this.fiche;
 
 		while (indexRech < index) {
-			result = result.getFicheSuivante();
+			result = result.getContactSuivante();
 			indexRech++;
 		}
 
 		return result;
 	}
 
-	public Fiche getFiche(int index) {
-		final FicheChaine f = this.getFicheChaine(index);
+	public Contact getFiche(int index) {
+		final ContactChaine f = this.getFicheChaine(index);
 
 		if (f == null) {
 			return null;
 		}
 
-		return (Fiche) f;
+		return (Contact) f;
 	}
 
 	/**
@@ -228,11 +228,11 @@ public class ListeFiche {
 		}
 
 		int size = 1;
-		FicheChaine f = this.fiche;
+		ContactChaine f = this.fiche;
 
-		// Tant que la fiche suivante n'est pas la dernière fiche
-		while (!f.estDerniereFiche()) {
-			f = f.getFicheSuivante();
+		// Tant que la Contact suivante n'est pas la dernière fiche
+		while (!f.estDernierContact()) {
+			f = f.getContactSuivante();
 			size++;
 		}
 
@@ -248,16 +248,16 @@ public class ListeFiche {
 	 * 
 	 * @return
 	 */
-	public FicheChaine getDerniereFiche() {
+	public ContactChaine getDerniereFiche() {
 		if (this.isEmpty()) {
 			return null;
 		}
 
-		FicheChaine f = this.fiche;
+		ContactChaine f = this.fiche;
 
 		// Tant que f n'est pas la dernière fiche
-		while (!f.estDerniereFiche()) {
-			f = f.getFicheSuivante();
+		while (!f.estDernierContact()) {
+			f = f.getContactSuivante();
 		}
 
 		return f;
@@ -268,7 +268,7 @@ public class ListeFiche {
 	      try {
 	         FileInputStream fis = new FileInputStream("basedetest.txt");
 	         ObjectInputStream ois = new ObjectInputStream(fis);
-	         this.fiche = ((FicheChaine) ois.readObject());
+	         this.fiche = ((ContactChaine) ois.readObject());
 	         ois.close();
 	      } catch (Exception e) { 
 	         e.printStackTrace(); 

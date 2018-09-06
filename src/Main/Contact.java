@@ -3,10 +3,10 @@ package Main;
 import java.io.Serializable;
 
 /**
- * Classe qui permet d'instancier une fiche avec les informations sur une personne
+ * Classe qui permet d'instancier une contact avec les informations sur une personne
  * Elle contient nom, prenom, adresse, numero de telephone
  */
-public class Fiche implements Serializable{
+public class Contact implements Serializable{
 
 	private String prenom;
 	private String nom;
@@ -14,13 +14,13 @@ public class Fiche implements Serializable{
 	private String tel;
 	
 	/**
-	 * Premier constructeur de fiche, il permet de créer une fiche avec toute les informations possibles d'une personne
+	 * Premier constructeur de fiche, il permet de creer une contact avec toute les informations possibles d'une personne
 	 * @param prenom
 	 * @param nom
 	 * @param adresse
 	 * @param tel
 	 */
-	public Fiche(String prenom, String nom, String adresse, String tel) {
+	public Contact(String prenom, String nom, String adresse, String tel) {
 		this.setPrenom(prenom);
 		this.setNom(nom);
 		this.setAdresse(adresse);
@@ -32,7 +32,7 @@ public class Fiche implements Serializable{
 	 * @param prenom
 	 * @param nom
 	 */
-	public Fiche(String prenom, String nom) {
+	public Contact(String prenom, String nom) {
 		this.setPrenom(prenom);
 		this.setNom(nom);
 		this.adresse = "";
@@ -84,6 +84,6 @@ public class Fiche implements Serializable{
 
 	@Override
 	public String toString() {
-		return "Fiche [prenom=" + prenom + ", nom=" + nom + ", adresse=" + adresse + ", tel=" + tel + "]";
+		return "Contact [prenom=" + prenom + ", nom=" + nom + ", adresse=" + adresse + ", tel=" + tel + "]";
 	}
 }

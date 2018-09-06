@@ -1,14 +1,15 @@
 package Main;
 
 import java.util.Scanner;
-import listefiche.FicheChaine;
-import listefiche.ListeFiche;
+
+import liste_contacts.ContactChaine;
+import liste_contacts.ListeContact;
 
 public class Main {
 
 	public static void main(String[] args) {
 		boolean quitter = false;
-		final ListeFiche listeFiche = new ListeFiche();
+		final ListeContact listeContact = new ListeContact();
 
 
 		while (!quitter) {
@@ -38,32 +39,32 @@ public class Main {
 				break;
 
 			case 'A': // Afficher les contacts numerotees
-				afficherFiches(listeFiche);
+				afficherContacts(listeContact);
 				break;
 
 			case 'B':// Afficher un contact
-				System.out.println("Afficher la fiche numéro : ");
+				System.out.println("Afficher le contact numéro : ");
 				final int index = sc.nextInt();
-				Fiche f = listeFiche.getFiche(index);
+				Contact f = listeContact.getFiche(index);
 				if (f == null) {
 					System.out.println("Ce contact n'existe pas !");
 				} else {
-					// Affichage de la fiche
-					afficherFiche(f);
+					// Affichage de le contact
+					afficherContact(f);
 				}
 				break;
 
 			case 'C':// Saisir une nouvelle contact
-				saisirUneFiche(listeFiche);
+				nouveauContact(listeContact);
 				break;
 
 			case 'D':// Supprimer un contact
 				System.out.print("Numero du contact a supprimer : ");
 				int indexSuppr = sc.nextInt();
-				if (indexSuppr <= 0 || indexSuppr > listeFiche.getSize()) {
+				if (indexSuppr <= 0 || indexSuppr > listeContact.getSize()) {
 					System.out.println("Le contact n'existe pas");
 				} else {
-					listeFiche.retirerFiche(indexSuppr);
+					listeContact.retirerContact(indexSuppr);
 					System.out.println("Contact supprime !");
 				}
 				break;
@@ -73,20 +74,20 @@ public class Main {
 
 			case 'F': // Trier les contacts
 				System.out.println("Tri en cours");
-				listeFiche.trier();
+				listeContact.trier();
 				break;
 
 			case 'G': // Sauvegarder
-				if (listeFiche.isEmpty()) {
+				if (listeContact.isEmpty()) {
 					System.out.println("Vous n'avez aucun contact, il n'y a rien a sauvegarder");
 				} else {
-					listeFiche.sauvegarder();
+					listeContact.sauvegarder();
 					System.out.println("Sauvegarde effectuee !");
 				}
 				break;
 
 			case 'H': // Charger
-				listeFiche.charger();
+				listeContact.charger();
 				break;
 
 			default:
@@ -97,7 +98,7 @@ public class Main {
 		System.out.println("Au revoir !!");
 	}
 
-	private static void afficherFiche(Fiche f) {
+	private static void afficherContact(Contact f) {
 		System.out.println("\n-----------------------");
 		System.out.println("Contact :");
 		System.out.println("Prenom : " + f.getPrenom());
@@ -117,14 +118,14 @@ public class Main {
 		System.out.println("-----------------------\n");
 	}
 
-	private static void afficherFiches(ListeFiche listeFiche) {
-		if (!listeFiche.isEmpty()) {
-			FicheChaine f = listeFiche.getFicheChaine(1);
+	private static void afficherContacts(ListeContact listeContact) {
+		if (!listeContact.isEmpty()) {
+			ContactChaine f = listeContact.getFicheChaine(1);
 			int indexFiche = 1;
 			System.out.println("\n-----------------------");
 			do {
 				System.out.println(indexFiche + " : " + f.getPrenom() + " " + f.getNom());
-				f = f.getFicheSuivante();
+				f = f.getContactSuivante();
 				indexFiche++;
 			} while (f != null);
 			System.out.println("-----------------------\n");
@@ -135,7 +136,7 @@ public class Main {
 
 	}
 
-	private static void saisirUneFiche(ListeFiche listeFiche) {
+	private static void nouveauContact(ListeContact listeContact) {
 		String prenom;
 		String nom;
 		String adresse;
@@ -151,7 +152,7 @@ public class Main {
 		System.out.print("Nom : ");
 		nom = sc.nextLine();
 
-		Fiche f = new Fiche(prenom, nom);
+		Contact f = new Contact(prenom, nom);
 
 		System.out.print("Adresse : ");
 		adresse = sc.nextLine();
@@ -165,7 +166,7 @@ public class Main {
 		}
 		f.setTel(tel);
 
-		listeFiche.ajouterFiche(f);
+		listeContact.ajouterContact(f);
 	}
 
 }
