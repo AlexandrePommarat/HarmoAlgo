@@ -2,13 +2,24 @@ package Main;
 
 import java.io.Serializable;
 
+/**
+ * Classe qui permet d'instancier une fiche avec les informations sur une personne
+ * Elle contient nom, prenom, adresse, numero de telephone
+ */
 public class Fiche implements Serializable{
 
 	private String prenom;
 	private String nom;
 	private String adresse;
 	private String tel;
-
+	
+	/**
+	 * Premier constructeur de fiche, il permet de créer une fiche avec toute les informations possibles d'une personne
+	 * @param prenom
+	 * @param nom
+	 * @param adresse
+	 * @param tel
+	 */
 	public Fiche(String prenom, String nom, String adresse, String tel) {
 		this.setPrenom(prenom);
 		this.setNom(nom);
@@ -16,6 +27,11 @@ public class Fiche implements Serializable{
 		this.setTel(tel);
 	}
 
+	/**
+	 * Deuxieme constructeur 
+	 * @param prenom
+	 * @param nom
+	 */
 	public Fiche(String prenom, String nom) {
 		this.setPrenom(prenom);
 		this.setNom(nom);
