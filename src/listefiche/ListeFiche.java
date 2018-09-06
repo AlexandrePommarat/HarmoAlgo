@@ -110,7 +110,44 @@ public class ListeFiche {
 				}
 			}
 		}
+	}
+	
+	/**
+	 * Méthode permettant de rechercher dans les contacts.
+	 * @param recherche le mot à rechercher dans les contacts
+	 * @return Une liste de Fiche qui match avec la recherche
+	 */
+	public ListeFiche recherche(String recherche) {
+		final ListeFiche result = new ListeFiche();
+		
+		if(this.isEmpty()) {
+			return null;
+		}
+		
+		FicheChaine fc = this.getFicheChaine(1);
+		while(!fc.estDerniereFiche()){
+			//On vérifie si fc match avec la recherche
+			if(correspond(recherche, fc)) {
+				result.ajouterFiche(fc);
+			}
+				//Si ça match, on le rajoute dans result
+			
+			fc = fc.getFicheSuivante();
+		}
+		
+		return result;		
+	}
+	
+	
 
+	/**
+	 * Méthode permettant de vérifier si le mot recherche est contenu dans un des champs de la fiche
+	 * @param recherche le mot à rechercher
+	 * @param fiche la fiche à vérifier
+	 * @return vrai si la recherche correspond, sinon retourne faux
+	 */
+	private boolean correspond(String recherche, FicheChaine fiche) {
+		return false;
 	}
 
 	/**
@@ -227,7 +264,7 @@ public class ListeFiche {
 	}
 
 	public void charger(){
-		// des�rialisation
+		// des�rialisation
 	      try {
 	         FileInputStream fis = new FileInputStream("basedetest.txt");
 	         ObjectInputStream ois = new ObjectInputStream(fis);
