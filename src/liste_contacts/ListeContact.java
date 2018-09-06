@@ -62,11 +62,11 @@ public class ListeContact {
 	public void retirerContact(int index) {
 		// si la Contact n'existe pas, la méthode s'arrête
 		if (index == 1) {
-			this.fiche = this.fiche.getContactSuivante();
+			this.fiche = this.fiche.getContactSuivant();
 		} else if (index > 1 && index <= this.getSize() && !this.isEmpty()) {
 			ContactChaine supr = this.getFicheChaine(index);
 			ContactChaine avant = this.getFicheChaine(index - 1);
-			avant.setContactSuivante(supr.getContactSuivante());
+			avant.setContactSuivante(supr.getContactSuivant());
 		}
 	}
 
@@ -87,7 +87,7 @@ public class ListeContact {
 					// On récupère un élement
 					ContactChaine fc1 = this.getFicheChaine(index);
 					// Puis on récupère l'élément qui le suit
-					ContactChaine fc2 = fc1.getContactSuivante();
+					ContactChaine fc2 = fc1.getContactSuivant();
 
 					// S'il faut les échanger (s'il faut que fc2 soit avant fc1)
 					if (aEchanger(fc1, fc2)) {
@@ -102,7 +102,7 @@ public class ListeContact {
 							ContactChaine fc0 = this.getFicheChaine(index - 1);
 							fc0.setContactSuivante(fc2);
 						}
-						fc1.setContactSuivante(fc2.getContactSuivante());
+						fc1.setContactSuivante(fc2.getContactSuivant());
 						fc2.setContactSuivante(fc1);
 
 						change = true;
@@ -132,7 +132,11 @@ public class ListeContact {
 			}
 				//Si ça match, on le rajoute dans result
 			
-			fc = fc.getContactSuivante();
+			fc = fc.getContactSuivant();
+		}
+		//On vérifie si fc match avec la recherche une dernière fois
+		if(correspond(recherche, fc)) {
+			result.ajouterContact(fc);
 		}
 		
 		return result;		
@@ -147,7 +151,29 @@ public class ListeContact {
 	 * @return vrai si la recherche correspond, sinon retourne faux
 	 */
 	private boolean correspond(String recherche, ContactChaine fiche) {
-		return false;
+		if(fiche == null) {
+			return false;
+		}
+		
+		recherche = recherche.toUpperCase();
+		
+		boolean result = false;
+		//recherche dans toutes les catégories
+		final String prenom = fiche.getPrenom().toUpperCase();
+		final String nom = fiche.getNom().toUpperCase();
+		final String tel = fiche.getTel().trim();
+		final String adresse = fiche.getAdresse().toUpperCase();
+		
+		if(prenom.contains(recherche))
+			result = true;
+		else if (nom.contains(recherche))
+			result = true;
+		else if (tel.contains(recherche))
+			result = true;
+		else if (adresse.contains(recherche))
+			result = true;
+		
+		return result;
 	}
 
 	/**
@@ -200,14 +226,14 @@ public class ListeContact {
 		ContactChaine result = this.fiche;
 
 		while (indexRech < index) {
-			result = result.getContactSuivante();
+			result = result.getContactSuivant();
 			indexRech++;
 		}
 
 		return result;
 	}
 
-	public Contact getFiche(int index) {
+	public Contact getContact(int index) {
 		final ContactChaine f = this.getFicheChaine(index);
 
 		if (f == null) {
@@ -232,7 +258,7 @@ public class ListeContact {
 
 		// Tant que la Contact suivante n'est pas la dernière fiche
 		while (!f.estDernierContact()) {
-			f = f.getContactSuivante();
+			f = f.getContactSuivant();
 			size++;
 		}
 
@@ -257,14 +283,14 @@ public class ListeContact {
 
 		// Tant que f n'est pas la dernière fiche
 		while (!f.estDernierContact()) {
-			f = f.getContactSuivante();
+			f = f.getContactSuivant();
 		}
 
 		return f;
 	}
 
 	public void charger(){
-		// des�rialisation
+		// deserialisation
 	      try {
 	         FileInputStream fis = new FileInputStream("basedetest.txt");
 	         ObjectInputStream ois = new ObjectInputStream(fis);

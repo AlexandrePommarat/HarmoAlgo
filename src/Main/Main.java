@@ -20,7 +20,7 @@ public class Main {
 			System.out.println("C. Ajouter un contact");
 			System.out.println("D. Supprimer un contact");
 			System.out.println("E. Rechercher un contact");
-			System.out.println("F. Trier les contacts");
+			System.out.println("F. Trier les contacts (par nom)");
 			System.out.println("G. Sauvegarder les contacts");
 			System.out.println("H. Charger une nouvelle liste de contacts");
 			System.out.println("Q. Quitter");
@@ -45,7 +45,7 @@ public class Main {
 			case 'B':// Afficher un contact
 				System.out.println("Afficher le contact numéro : ");
 				final int index = sc.nextInt();
-				Contact f = listeContact.getFiche(index);
+				Contact f = listeContact.getContact(index);
 				if (f == null) {
 					System.out.println("Ce contact n'existe pas !");
 				} else {
@@ -70,6 +70,9 @@ public class Main {
 				break;
 
 			case 'E': // Rechercher un contact
+				System.out.print("Recherche : ");
+				String recherche = sc.nextLine();
+				afficherResultatRecherche(listeContact, recherche);
 				break;
 
 			case 'F': // Trier les contacts
@@ -98,21 +101,37 @@ public class Main {
 		System.out.println("Au revoir !!");
 	}
 
-	private static void afficherContact(Contact f) {
+	private static void afficherResultatRecherche(ListeContact listeContact, String recherche) {
+		ListeContact result = listeContact.recherche(recherche);
+		if(!result.isEmpty()) {
+			System.out.println("/--------------------- RESULTAT DE LA RECHERCHE -----------------------\\");
+			ContactChaine contact = result.getFicheChaine(1);
+			while(!contact.estDernierContact()) {
+				afficherContact(contact);
+				contact = contact.getContactSuivant();
+			}
+			afficherContact(contact);
+			System.out.println("\\----------------------------------------------------------------------/");
+		}
+		else
+			System.out.println("La recherche n'a pas aboutie :'(\n");
+	}
+
+	private static void afficherContact(Contact contact) {
 		System.out.println("\n-----------------------");
 		System.out.println("Contact :");
-		System.out.println("Prenom : " + f.getPrenom());
-		System.out.println("Nom : " + f.getNom());
+		System.out.println("Prenom : " + contact.getPrenom());
+		System.out.println("Nom : " + contact.getNom());
 
 		System.out.print("Telephone : ");
-		if (f.aUnTelephone())
-			System.out.println(f.getTel());
+		if (contact.aUnTelephone())
+			System.out.println(contact.getTel());
 		else
 			System.out.println("Inconnu");
 
 		System.out.print("Adresse : ");
-		if (f.aUneAdresse())
-			System.out.println(f.getAdresse());
+		if (contact.aUneAdresse())
+			System.out.println(contact.getAdresse());
 		else
 			System.out.println("Inconnu");
 		System.out.println("-----------------------\n");
@@ -125,7 +144,7 @@ public class Main {
 			System.out.println("\n-----------------------");
 			do {
 				System.out.println(indexFiche + " : " + f.getPrenom() + " " + f.getNom());
-				f = f.getContactSuivante();
+				f = f.getContactSuivant();
 				indexFiche++;
 			} while (f != null);
 			System.out.println("-----------------------\n");
@@ -152,11 +171,11 @@ public class Main {
 		System.out.print("Nom : ");
 		nom = sc.nextLine();
 
-		Contact f = new Contact(prenom, nom);
+		Contact contact = new Contact(prenom, nom);
 
 		System.out.print("Adresse : ");
 		adresse = sc.nextLine();
-		f.setAdresse(adresse);
+		contact.setAdresse(adresse);
 
 		System.out.print("Telephone : ");
 		tel = sc.nextLine();
@@ -164,9 +183,9 @@ public class Main {
 			System.out.print("Saisir un numero a dix chiffres : (ou ne rien saisir)");
 			tel = sc.nextLine();
 		}
-		f.setTel(tel);
+		contact.setTel(tel);
 
-		listeContact.ajouterContact(f);
+		listeContact.ajouterContact(contact);
 	}
 
 }

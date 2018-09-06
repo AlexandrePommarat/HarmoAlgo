@@ -31,7 +31,7 @@ public class ContactChaine extends Contact{
 		this.ficheSuivante = null;
 	}
 
-	public ContactChaine getContactSuivante() {
+	public ContactChaine getContactSuivant() {
 		return ficheSuivante;
 	}
 
