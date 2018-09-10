@@ -1,4 +1,4 @@
-package Main;
+package liste_contacts;
 
 import java.io.Serializable;
 

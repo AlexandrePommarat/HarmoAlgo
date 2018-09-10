@@ -2,6 +2,7 @@ package Main;
 
 import java.util.Scanner;
 
+import liste_contacts.Contact;
 import liste_contacts.ContactChaine;
 import liste_contacts.ListeContact;
 

@@ -6,8 +6,6 @@ import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
-import Main.Contact;
-
 /**
  * Classe permettant de creer une liste de {@link ContactChaine} et de les
  * manipuler, fiches indexées en commençant par 1.
