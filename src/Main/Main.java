@@ -1,18 +1,21 @@
 package Main;
 
 import java.util.Scanner;
-
 import liste_contacts.Contact;
 import liste_contacts.ContactChaine;
 import liste_contacts.ListeContact;
 
 public class Main {
 
+	private static final char REPONSE_INCORRECTE = '0';
+
 	public static void main(String[] args) {
 		boolean quitter = false;
 		final ListeContact listeContact = new ListeContact();
-
-
+		Scanner sc = new Scanner(System.in);
+		char reponseChar;
+		String reponseStr;
+		
 		while (!quitter) {
 			System.out.println("\n---------------------------------------");
 			System.out.println("Selectionnez une action a effectuer:");
@@ -27,41 +30,49 @@ public class Main {
 			System.out.println("Q. Quitter");
 			System.out.println("---------------------------------------\n");
 
-			Scanner sc = new Scanner(System.in);
-			char reponse;
-
 			System.out.print("Réponse : ");
 			// Récupération de la réponse en majuscule
-			reponse = Character.toUpperCase(sc.nextLine().charAt(0));
+			reponseStr = sc.nextLine();
+			if(reponseStr.length() >= 1)
+				reponseChar = Character.toUpperCase(reponseStr.charAt(0));
+			else
+				reponseChar = REPONSE_INCORRECTE;
 
-			switch (reponse) {
+			switch (reponseChar) {
 			case 'Q':
 				quitter = true;
 				break;
 
 			case 'A': // Afficher les contacts numerotees
-				afficherContacts(listeContact);
+				afficherListeContacts(listeContact);
 				break;
 
 			case 'B':// Afficher un contact
 				System.out.println("Afficher le contact numéro : ");
 				final int index = sc.nextInt();
+				if(sc.hasNextLine()) {
+					sc.nextLine();
+				}
+				
 				Contact f = listeContact.getContact(index);
 				if (f == null) {
 					System.out.println("Ce contact n'existe pas !");
 				} else {
 					// Affichage de le contact
-					afficherContact(f);
+					afficherDetailContact(f);
 				}
 				break;
 
 			case 'C':// Saisir une nouvelle contact
-				nouveauContact(listeContact);
+				saisirNouveauContact(listeContact, sc);
 				break;
 
 			case 'D':// Supprimer un contact
 				System.out.print("Numero du contact a supprimer : ");
 				int indexSuppr = sc.nextInt();
+				if(sc.hasNextLine()) {
+					sc.nextLine();
+				}
 				if (indexSuppr <= 0 || indexSuppr > listeContact.getSize()) {
 					System.out.println("Le contact n'existe pas");
 				} else {
@@ -98,7 +109,7 @@ public class Main {
 				System.out.println("Reponse inconnue");
 			}
 		}
-
+		sc.close();
 		System.out.println("Au revoir !!");
 	}
 
@@ -108,17 +119,17 @@ public class Main {
 			System.out.println("/--------------------- RESULTAT DE LA RECHERCHE -----------------------\\");
 			ContactChaine contact = result.getFicheChaine(1);
 			while(!contact.estDernierContact()) {
-				afficherContact(contact);
+				afficherDetailContact(contact);
 				contact = contact.getContactSuivant();
 			}
-			afficherContact(contact);
+			afficherDetailContact(contact);
 			System.out.println("\\----------------------------------------------------------------------/");
 		}
 		else
 			System.out.println("La recherche n'a pas aboutie :'(\n");
 	}
 
-	private static void afficherContact(Contact contact) {
+	private static void afficherDetailContact(Contact contact) {
 		System.out.println("\n-----------------------");
 		System.out.println("Contact :");
 		System.out.println("Prenom : " + contact.getPrenom());
@@ -138,7 +149,7 @@ public class Main {
 		System.out.println("-----------------------\n");
 	}
 
-	private static void afficherContacts(ListeContact listeContact) {
+	private static void afficherListeContacts(ListeContact listeContact) {
 		if (!listeContact.isEmpty()) {
 			ContactChaine f = listeContact.getFicheChaine(1);
 			int indexFiche = 1;
@@ -156,13 +167,11 @@ public class Main {
 
 	}
 
-	private static void nouveauContact(ListeContact listeContact) {
+	private static void saisirNouveauContact(ListeContact listeContact, Scanner sc) {
 		String prenom;
 		String nom;
 		String adresse;
 		String tel;
-
-		Scanner sc = new Scanner(System.in);
 
 		System.out.println("Saisissez votre contact : (Ne rien mettre si vous voulez laisser vide)");
 
