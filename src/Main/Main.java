@@ -11,6 +11,7 @@ public class Main {
 	public static void main(String[] args) {
 		boolean quitter = false;
 		final ListeContact listeContact = new ListeContact();
+		Scanner sc = new Scanner(System.in);
 
 
 		while (!quitter) {
@@ -26,8 +27,6 @@ public class Main {
 			System.out.println("H. Charger une nouvelle liste de contacts");
 			System.out.println("Q. Quitter");
 			System.out.println("---------------------------------------\n");
-
-			Scanner sc = new Scanner(System.in);
 			char reponse;
 
 			System.out.print("Réponse : ");
@@ -98,7 +97,8 @@ public class Main {
 				System.out.println("Reponse inconnue");
 			}
 		}
-
+		
+		sc.close();
 		System.out.println("Au revoir !!");
 	}
 
@@ -187,6 +187,8 @@ public class Main {
 		contact.setTel(tel);
 
 		listeContact.ajouterContact(contact);
+		
+		sc.close();
 	}
 
 }
