@@ -182,8 +182,6 @@ public class ListeContact {
 	 * @return true si f1 doit être après f2, sinon retourne faux
 	 */
 	private boolean aEchanger(Contact f1, Contact f2) {
-		boolean echanger = false;
-
 		int charCompare = 0;
 
 		// Tant que les lettres dans le nom sont les mêmes et qu'il reste des lettres,

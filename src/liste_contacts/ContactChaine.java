@@ -8,6 +8,8 @@ import java.io.Serializable;
  *
  */
 public class ContactChaine extends Contact{
+
+	private static final long serialVersionUID = 1L;
 	
 	/**
 	 * Pointeur vers le Contact suivante
