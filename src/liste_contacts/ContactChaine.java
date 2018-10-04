@@ -1,5 +1,7 @@
 package liste_contacts;
 
+import java.io.Serializable;
+
 /**
  * ContactChaine utilisée par la classe {@link ListeContact}, cette objet est un Contact qui a un pointeur qui
  * pointe vers un autre contact
@@ -7,10 +9,6 @@ package liste_contacts;
  */
 public class ContactChaine extends Contact{
 	
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
 	/**
 	 * Pointeur vers le Contact suivante
 	 */
