@@ -1,6 +1,5 @@
 package liste_contacts;
 
-
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
@@ -21,8 +20,8 @@ public class ListeContact {
 	private ContactChaine fiche;
 
 	/**
-	 * Constructeur de l'objet FicheChainee, il cree une nouvelle Contact chainee avec
-	 * en parametre la premiere fiche
+	 * Constructeur de l'objet FicheChainee, il cree une nouvelle Contact chainee
+	 * avec en parametre la premiere fiche
 	 * 
 	 * @param f la Contact qui deviendra la premiere fiche
 	 */
@@ -61,9 +60,10 @@ public class ListeContact {
 		// si la Contact n'existe pas, la méthode s'arrête
 		if (index == 1) {
 			this.fiche = this.fiche.getContactSuivant();
-		} else if (index > 1 && index <= this.getSize() && !this.isEmpty()) {
-			ContactChaine supr = this.getFicheChaine(index);
+		}
+		else if (index > 1 && index <= this.getSize() && !this.isEmpty()) {
 			ContactChaine avant = this.getFicheChaine(index - 1);
+			ContactChaine supr = avant.getContactSuivant();
 			avant.setContactSuivante(supr.getContactSuivant());
 		}
 	}
@@ -72,15 +72,11 @@ public class ListeContact {
 	 * Trie la liste par ordre alphabetique en fonction du nom de famille
 	 */
 	public void trier() {
-		// tri à bulle : trier deux éléments à la fois jusqu'à ce qu'aucun changements
-		// n'est effectué
 		if (this.getSize() > 1) {
-			// Si change est true, c'est qu'il y a eu un changement
 			boolean change = true;
 
 			while (change) {
 				change = false;
-				// On parcourt tout les éléments
 				for (int index = 1; index < this.getSize(); index++) {
 					// On récupère un élement
 					ContactChaine fc1 = this.getFicheChaine(index);
@@ -109,60 +105,61 @@ public class ListeContact {
 			}
 		}
 	}
-	
+
 	/**
 	 * Méthode permettant de rechercher dans les contacts.
+	 * 
 	 * @param recherche le mot à rechercher dans les contacts
 	 * @return Une liste de Contact qui match avec la recherche
 	 */
 	public ListeContact recherche(String recherche) {
 		final ListeContact result = new ListeContact();
-		
-		if(this.isEmpty()) {
-			return null;
+
+		if (this.isEmpty()) {
+			return result;
 		}
-		
+
 		ContactChaine fc = this.getFicheChaine(1);
-		while(!fc.estDernierContact()){
-			//On vérifie si fc match avec la recherche
-			if(correspond(recherche, fc)) {
+		while (!fc.estDernierContact()) {
+			// On vérifie si fc match avec la recherche
+			if (correspond(recherche, fc)) {
 				result.ajouterContact(fc);
 			}
-				//Si ça match, on le rajoute dans result
-			
+			// Si ça match, on le rajoute dans result
+
 			fc = fc.getContactSuivant();
 		}
-		//On vérifie si fc match avec la recherche une dernière fois
-		if(correspond(recherche, fc)) {
+		// On vérifie si fc match avec la recherche une dernière fois
+		if (correspond(recherche, fc)) {
 			result.ajouterContact(fc);
 		}
-		
-		return result;		
+
+		return result;
 	}
-	
-	
 
 	/**
-	 * Méthode permettant de vérifier si le mot recherche est contenu dans un des champs de la fiche
+	 * Méthode permettant de vérifier si le mot recherche est contenu dans un des
+	 * champs de la fiche
+	 * 
 	 * @param recherche le mot à rechercher
-	 * @param Contact la Contact à vérifier
+	 * @param Contact   la Contact à vérifier
 	 * @return vrai si la recherche correspond, sinon retourne faux
 	 */
 	private boolean correspond(String recherche, ContactChaine fiche) {
-		if(fiche == null) {
+		if (fiche == null) {
 			return false;
 		}
-		
+
 		recherche = recherche.toUpperCase();
-		
+
 		boolean result = false;
-		//recherche dans toutes les catégories
+		// recherche dans toutes les catégories
 		final String prenom = fiche.getPrenom().toUpperCase();
 		final String nom = fiche.getNom().toUpperCase();
 		final String tel = fiche.getTel().trim();
 		final String adresse = fiche.getAdresse().toUpperCase();
-		
-		if(prenom.contains(recherche))
+
+		if (prenom.contains(recherche))
 			result = true;
 		else if (nom.contains(recherche))
 			result = true;
@@ -170,7 +167,7 @@ public class ListeContact {
 			result = true;
 		else if (adresse.contains(recherche))
 			result = true;
-		
+
 		return result;
 	}
 
@@ -210,9 +207,8 @@ public class ListeContact {
 	 * @return La Contact numéro index
 	 */
 	public ContactChaine getFicheChaine(int index) {
-		// Si l'index n'est pas dans la liste OU si la liste est vide
 		if (index <= 0 || index > this.getSize() || this.isEmpty()) {
-			return null;
+			throw new IllegalArgumentException("Ce contact n'existe pas");
 		}
 
 		// On parcourt toutes les fiches de la première à la dernière
@@ -230,13 +226,7 @@ public class ListeContact {
 	}
 
 	public Contact getContact(int index) {
-		final ContactChaine f = this.getFicheChaine(index);
-
-		if (f == null) {
-			return null;
-		}
-
-		return (Contact) f;
+		return (Contact) this.getFicheChaine(index);
 	}
 
 	/**
@@ -285,27 +275,26 @@ public class ListeContact {
 		return f;
 	}
 
-	public void charger(){
-		// deserialisation
-	      try {
-	         FileInputStream fis = new FileInputStream("basedetest.txt");
-	         ObjectInputStream ois = new ObjectInputStream(fis);
-	         this.fiche = ((ContactChaine) ois.readObject());
-	         ois.close();
-	      } catch (Exception e) { 
-	         e.printStackTrace(); 
-	      }
-	}
-	
-	public void sauvegarder(){
+	public void charger() {
 		try {
-	         FileOutputStream fs = new FileOutputStream("basedetest.txt");
-	         ObjectOutputStream os = new ObjectOutputStream(fs);
-	         os.writeObject(this.getFicheChaine(1)); 
-	         os.close();
-	      } catch (Exception e) { 
-	         e.printStackTrace(); 
-	      }
+			FileInputStream fis = new FileInputStream("basedetest.txt");
+			ObjectInputStream ois = new ObjectInputStream(fis);
+			this.fiche = ((ContactChaine) ois.readObject());
+			ois.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void sauvegarder() {
+		try {
+			FileOutputStream fs = new FileOutputStream("basedetest.txt");
+			ObjectOutputStream os = new ObjectOutputStream(fs);
+			os.writeObject(this.getFicheChaine(1));
+			os.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 }
